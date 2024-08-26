@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h4 class="card-title text-center mb-4">{{ _("Add Monitoring Site") }}</h4>
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <!-- Slack URL Field -->
+                        <div class="form-group mb-4">
+                            <label for="{{ form.slack_url.id_for_label }}" class="form-label">{{ form.slack_url.label }}</label>
+                            {{ form.slack_url }}
+                            <small class="form-text text-muted">{{ form.slack_url.help_text }}</small>
+                        </div>
+
+                        <!-- Web URL Field -->
+                        <div class="form-group mb-4">
+                            <label for="{{ form.web_url.id_for_label }}" class="form-label">{{ form.web_url.label }}</label>
+                            {{ form.web_url }}
+                            <small class="form-text text-muted">{{ form.web_url.help_text }}</small>
+                        </div>
+
+                        <!-- URL Text Field -->
+                        <div class="form-group mb-4">
+                            <label for="{{ form.url_text.id_for_label }}" class="form-label">{{ form.url_text.label }}</label>
+                            {{ form.url_text }}
+                            <small class="form-text text-muted">{{ form.url_text.help_text }}</small>
+                        </div>
+
+                        <!-- Description Field -->
+                        <div class="form-group mb-4">
+                            <label for="{{ form.text.id_for_label }}" class="form-label">{{ form.text.label }}</label>
+                            {{ form.text }}
+                            <small class="form-text text-muted">{{ form.text.help_text }}</small>
+                        </div>
+
+                        <!-- Frequency Field -->
+                        <div class="form-group mb-4">
+                            <label for="{{ form.frequency.id_for_label }}" class="form-label">{{ form.frequency.label }}</label>
+                            {{ form.frequency }}
+                            <small class="form-text text-muted">{{ form.frequency.help_text }}</small>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                {% trans "Add Monitoring Site" %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

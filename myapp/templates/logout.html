@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-center mb-4">Logout</h4>
+                    {% if request.user.is_authenticated %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-warning w-100">Logout</button>
+                        </form>
+                    <!-- {% else %}
+                        <div class="alert alert-info text-center">
+                            You are not logged in. Would you like to <a href="login" class="alert-link">login</a>?
+                        </div> -->
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
