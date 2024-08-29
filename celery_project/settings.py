@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from .secret import *
 import os
+import jwt
 
 # Application definition
 
@@ -140,8 +141,7 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 # Disable HMAC for email confirmation (optional)
 ACCOUNT_EMAIL_CONFIRMATION_HMAC = False
 
-# Disable email confirmation for new users
-ACCOUNT_EMAIL_CONFIRMATION_COOLDOWN = 0
+
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 0
 
 # Optional: If you don't want to require an email at all

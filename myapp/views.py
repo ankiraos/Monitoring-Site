@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from celery_project.celery import add
 from .forms import SiteCheckerForm, LoginForm
 from .models import SiteChecker
 from django.contrib.auth.decorators import login_required
@@ -76,7 +75,7 @@ def add_site(request):
                 text=text,
                 frequency=frequency,
             )
-            return redirect("home")
+            return redirect("home_page")
     else:
         form = SiteCheckerForm()
     return render(request, "add_sites.html", context={"form": form})

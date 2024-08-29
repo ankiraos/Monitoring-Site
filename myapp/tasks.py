@@ -1,10 +1,6 @@
 from celery import shared_task
 import requests
-from .models import SiteChecker
-from time import sleep
-import json
-from datetime import datetime
-from google_play_scraper import search
+from myapp.models import SiteChecker
 
 
 @shared_task

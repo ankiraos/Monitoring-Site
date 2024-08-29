@@ -22,14 +22,11 @@ class LoginForm(forms.Form):
 class SiteCheckerForm(forms.ModelForm):
     class Meta:
         model = SiteChecker
-        fields = ["slack_url", "web_url", "url_text", "text", "frequency"]
+        fields = ["slack_url", "web_url", "url_text", "text"]
         widgets = {
             "name": forms.TextInput(attrs={"class": "form-control"}),
             "slack_url": forms.URLInput(attrs={"class": "form-control"}),
             "web_url": forms.URLInput(attrs={"class": "form-control"}),
             "url_text": forms.TextInput(attrs={"class": "form-control"}),
             "text": forms.Textarea(attrs={"class": "form-control"}),
-            "frequency": forms.TimeInput(
-                attrs={"class": "form-control my-2", "type": "text"}
-            ),
         }

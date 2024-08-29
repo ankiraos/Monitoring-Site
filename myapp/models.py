@@ -21,5 +21,7 @@ class SiteChecker(models.Model):
     )
     text = models.CharField(max_length=200, help_text="Text for match in web site")
     frequency = models.DurationField(
-        help_text="Set the time interval for the task", default=timedelta(minutes=1)
+        help_text="Set the time interval for the task",
+        default=timedelta(minutes=1),
+        null=True,
     )
