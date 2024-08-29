@@ -21,33 +21,41 @@ def testing():
         # Make the URL a clickable link with the domain as the anchor text
         site_info = f"🌐 *Site:* <{web_url}|{url_text}>"
 
-        # Create a divider block with a line
         divider = "```━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━```"
 
         try:
             response = requests.get(web_url)
             if response.status_code == 200:
-                try:
-                    if site.text in response.text:
+                if site.text in response.text:
+                    new_status = "up"
+                    if site.status != new_status:
                         status = f"✅ *Status:* The site is up and running smoothly!"
                         msg = {
-                            "text": f"{heading}\n\n{time_info}\n{site_info}\n\n{status}\n{divider}"
+                            "text": f"{divider}\n{heading}\n\n{time_info}\n{site_info}\n\n{status}\n{divider}"
                         }
                         requests.post(site.slack_url, json=msg)
-                    else:
+                        site.status = new_status  # Update the status
+                        site.save()  # Save the new status to the database
+                else:
+                    new_status = "text_missing"
+                    if site.status != new_status:
                         text = site.text
                         status = f'⚠️ *Warning:* The site is up, but the text "*{text}*" was not found. It might be down.'
                         msg = {
-                            "text": f"{heading}\n\n{time_info}\n{site_info}\n\n{status}\n{divider}"
+                            "text": f"{divider}\n{heading}\n\n{time_info}\n{site_info}\n\n{status}\n{divider}"
                         }
                         requests.post(site.slack_url, json=msg)
-                except Exception as e:
-                    print(e)
+                        site.status = new_status  # Update the status
+                        site.save()  # Save the new status to the database
             else:
-                status = f"🔴 *Status:* The site is down!"
-                msg = {
-                    "text": f"{heading}\n\n{time_info}\n{site_info}\n\n{status}\n{divider}"
-                }
-                requests.post(site.slack_url, json=msg)
+                new_status = "down"
+                if site.status != new_status:
+                    status = f"🔴 *Status:* The site is down!"
+                    msg = {
+                        "text": f"{divider}\n{heading}\n\n{time_info}\n{site_info}\n\n{status}\n{divider}"
+                    }
+                    requests.post(site.slack_url, json=msg)
+                    site.status = new_status  # Update the status
+                    site.save()  # Save the new status to the database
         except Exception as e:
             print(e)

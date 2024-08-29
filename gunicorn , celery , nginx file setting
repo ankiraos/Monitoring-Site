@@ -1,0 +1,70 @@
+// django-project project gunicorn setting
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/django-project
+ExecStart=/home/ubuntu/django-project/env/bin/gunicorn --access-logfile - --workers 5 --bind unix:/home/ubuntu/django-project/gunicorn.sock django_project.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+// Monitoring_site project gunicorn setting
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/Monitoring-Site
+ExecStart=/home/ubuntu/Monitoring-Site/env/bin/gunicorn --access-logfile - --workers 5 --bind unix:/home/ubuntu/Monitoring-Site/gunicorn.sock celery_project.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+which gunicorn
+/home/ubuntu/django-project
+django_project
+
+
+/home/ubuntu/Monitoring-Site/env/bin/gunicorn --bind 0.0.0.0:8000 celery_project/wsgi
+
+sudo vi /etc/systemd/system/django_celery.service
+
+# celery.service file setting 
+[Unit]
+Description=Celery Service
+After=network.target
+
+[Service]
+Type=forking
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/Monitoring-Site
+ExecStart=/home/ubuntu/Monitoring-Site/env/bin/celery -A celery_project  worker  --beat -l info 
+
+[Install]
+WantedBy=multi-user.target
+
+
+# nginx service file
+server {
+    server_name monitoring.jmdeducation.tech;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/ubuntu/Monitoring-Site;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/Monitoring-Site/gunicorn.sock;
+    }
+}
+

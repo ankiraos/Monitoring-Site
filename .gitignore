@@ -36,6 +36,7 @@ __pycache__/
 
 # Ignore Django secret key file
 *.secret
+gunicorn , celery , nginx file setting/
 
 # If using PostgreSQL, you might also include this:
 *.pgdata
@@ -43,6 +44,7 @@ __pycache__/
 # Ignore media files
 media/
 staticfiles/
+
 
 # Django specific
 *.sqlite3  # SQLite database file, if you're using it locally

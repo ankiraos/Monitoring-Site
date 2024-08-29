@@ -14,4 +14,5 @@ class SiteCheckerAdmin(admin.ModelAdmin):
         "url_text",
         "text",
         "frequency",
+        "status",
     ]

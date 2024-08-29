@@ -25,3 +25,4 @@ class SiteChecker(models.Model):
         default=timedelta(minutes=1),
         null=True,
     )
+    status = models.CharField(max_length=10, default="unknown")  # Add this field
