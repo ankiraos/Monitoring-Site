@@ -13,6 +13,7 @@ ExecStart=/home/ubuntu/django-project/env/bin/gunicorn --access-logfile - --work
 WantedBy=multi-user.target
 
 // Monitoring_site project gunicorn setting
+
 [Unit]
 Description=gunicorn daemon
 After=network.target

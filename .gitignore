@@ -59,7 +59,7 @@ local_settings.py
 .vscode/
 .idea/
 *.sublime-project
-*.sublime-workspace
+*.sublime-workspace 
 
 # System files
 .DS_Store

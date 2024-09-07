@@ -1,3 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-center mb-4">Login</h4>
+                    {% if not request.user.is_authenticated %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-custom w-100">Login</button>
+                        </form>
+                    {% else %}
+                        <div class="alert alert-success text-center">
+                            You are already logged in! <br>
+                            <a href="logout" class="btn btn-outline-success mt-3">Logout</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- 
 {% extends "account/base_entrance.html" %}
 {% load i18n %}
 {% load allauth account %}
@@ -58,41 +84,4 @@
     {% if PASSKEY_LOGIN_ENABLED %}
         {% include "mfa/webauthn/snippets/login_script.html" with button_id="passkey_login" %}
     {% endif %}
-{% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- {% extends 'base.html' %}
-{% block content %}
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h4 class="card-title text-center mb-4">Login</h4>
-                    {% if not request.user.is_authenticated %}
-                        <form method="POST">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <button type="submit" class="btn btn-custom w-100">Login</button>
-                        </form>
-                    {% else %}
-                        <div class="alert alert-success text-center">
-                            You are already logged in! <br>
-                            <a href="logout" class="btn btn-outline-success mt-3">Logout</a>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %} -->
