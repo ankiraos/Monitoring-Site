@@ -10,6 +10,22 @@ def testing():
     sites = SiteChecker.objects.all()
     for site in sites:
         web_url = site.web_url
+        headers = {
+            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+            "accept-language": "en-US,en;q=0.9",
+            "cache-control": "max-age=0",
+            "priority": "u=0, i",
+            "sec-ch-ua": '"Not)A;Brand";v="99", "Google Chrome";v="127", "Chromium";v="127"',
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": '"Linux"',
+            "sec-fetch-dest": "document",
+            "sec-fetch-mode": "navigate",
+            "sec-fetch-site": "same-origin",
+            "sec-fetch-user": "?1",
+            "upgrade-insecure-requests": "1",
+            "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+        }
+
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         # Parse the domain from the URL to use as anchor text
@@ -24,7 +40,8 @@ def testing():
         divider = "```━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━```"
 
         try:
-            response = requests.get(web_url)
+            response = requests.get(web_url, headers=headers)
+            print(response)  # printing response
             if response.status_code == 200:
                 if site.text in response.text:
                     new_status = "up"
